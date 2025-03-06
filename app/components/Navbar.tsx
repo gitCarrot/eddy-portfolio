@@ -69,7 +69,7 @@ export default function Navbar() {
               whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.2 }}
             >HJ</motion.span>
-            <span>Honggun Jeon</span>
+            <span>@gitCarrot</span>
           </Link>
         </motion.div>
         

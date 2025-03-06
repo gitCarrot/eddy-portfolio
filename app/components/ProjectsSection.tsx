@@ -20,8 +20,8 @@ const projects: Project[] = [
     description: "Multi-agent system with LangGraph for complex task automation and data analysis workflows.",
     technologies: ["Python", "LangGraph", "FastAPI", "Next.js", "PostgreSQL", "Redis"],
     imageUrl: "/aiproject.png",
-    projectUrl: "https://github.com",
-    githubUrl: "https://github.com"
+    projectUrl: "https://github.com/gitCarrot/OrchAI",
+    githubUrl: "https://github.com/gitCarrot/OrchAI"
   },
 ];
 

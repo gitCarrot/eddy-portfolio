@@ -24,23 +24,13 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans);
-  overflow-x: hidden;
-}
-
-/* Scroll snapping for section transitions */
-html {
-  height: 100%;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-}
-
-body {
+  font-family: var(--font-sans);
   height: 100%;
   overflow-x: hidden;
 }
@@ -50,8 +40,18 @@ body {
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch; /* For iOS smooth scrolling */
+  -webkit-overflow-scrolling: touch;
   position: relative;
+  overscroll-behavior: none;
+  scroll-timeline: --page-scroll block;
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  -webkit-overflow-scrolling: touch;
+  -webkit-scroll-snap-points-y: repeat(100%);
+  -webkit-scroll-snap-type: mandatory;
+  transform: translateZ(0);
+  will-change: scroll-position;
+  scroll-padding: 0;
+  -ms-overflow-style: none;
 }
 
 .section {
@@ -67,10 +67,16 @@ body {
   scroll-snap-align: start;
   scroll-snap-stop: always;
   transition: background 1.5s cubic-bezier(0.22, 1, 0.36, 1), 
-              background-color 1.5s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: background, background-color;
+              background-color 1.5s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.5s ease-in-out,
+              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
   transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
   z-index: 1;
+  animation-timeline: --page-scroll;
+  animation-range: entry 10% cover 30%;
 }
 
 /* For continuous gradient background */
@@ -101,7 +107,7 @@ body {
   background: transparent;
   position: relative;
   z-index: 10;
-  padding-bottom: 60px;
+  padding-bottom: 0px;
 }
 
 #hero .section-content {
@@ -109,7 +115,7 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding-top: 0;
-  padding-bottom: 20px;
+  padding-bottom: 0px;
 }
 
 /* 프로젝트 섹션 스타일 조정 */
@@ -124,16 +130,34 @@ body {
   padding: 20px 0;
   z-index: 10;
   position: relative;
+  animation: fadeInSection 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Smooth section transitions */
 .section-transition {
-  transition: background-color 1s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 섹션 진입 애니메이션 */
+@keyframes fadeInSection {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 40px 16px 70px;
+    padding: 40px 16px 60px;
+    min-height: 100vh;
   }
   
   #hero {
@@ -145,18 +169,13 @@ body {
     padding-bottom: 10px;
   }
   
-  /* Fix for projects section on mobile */
   #projects {
-    scroll-snap-align: start;
-    min-height: 100vh;
-    height: auto;
-    padding-bottom: 100px;
-    padding-top: 100px;
+    padding-top: 80px;
+    padding-bottom: 120px;
   }
   
-  /* Make project cards easier to interact with on mobile */
   #projects .section-content {
-    padding-bottom: 60px;
+    padding-top: 20px;
   }
   
   .section-content {
@@ -188,6 +207,7 @@ body {
   align-items: flex-start;
   padding-top: 8px;
   z-index: 20;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .scroll-indicator::before {
@@ -215,25 +235,34 @@ body {
   }
 }
 
+.is-scrolling .scroll-indicator {
+  opacity: 0.3;
+  transform: scale(0.9);
+}
+
 /* Inter-section transitions */
 .section-transition-enter {
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(20px);
 }
 
 .section-transition-enter-active {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.5s, transform 0.5s;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .section-transition-exit {
   opacity: 1;
+  transform: translateY(0);
 }
 
 .section-transition-exit-active {
   opacity: 0;
-  transition: opacity 0.3s;
+  transform: translateY(-20px);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Custom scrollbar */
@@ -261,5 +290,70 @@ body {
   
   ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* 섹션 활성화 스타일 */
+.section-active {
+  z-index: 2;
+  will-change: transform, opacity;
+}
+
+.section-active .section-content {
+  animation: fadeInSection 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* 스크롤 중 스타일 */
+.is-scrolling .section {
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* 스크롤 중 배경 효과 */
+.is-scrolling .section::before {
+  opacity: 0.7;
+}
+
+/* 스크롤바 숨기기 (선택적) */
+.scroll-container::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* 스크롤 애니메이션 최적화 */
+@media (prefers-reduced-motion: no-preference) {
+  .section-content {
+    animation-duration: 0.5s;
+  }
+  
+  .section-transition-enter-active,
+  .section-transition-exit-active {
+    transition-duration: 0.5s;
+  }
+  
+  .is-scrolling .section-content {
+    animation: none;
+  }
+}
+
+/* 저사양 기기 최적화 */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-container {
+    scroll-behavior: auto;
+  }
+  
+  .section {
+    transition: none;
+    animation: none;
+  }
+  
+  .section-content {
+    animation: none;
+  }
+  
+  .section-transition-enter-active,
+  .section-transition-exit-active {
+    transition: none;
   }
 }

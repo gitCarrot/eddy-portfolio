@@ -95,7 +95,7 @@ export default function HeroSection() {
       </div>
 
       {/* 섹션 콘텐츠 */}
-      <div ref={containerRef} className="section-content flex flex-col items-center justify-center pt-10 sm:pt-16 pb-20 sm:pb-24 relative z-10">
+      <div ref={containerRef} className="section-content flex flex-col items-center justify-center relative z-10">
         {/* 당근 이모티콘 */}
         <motion.div
           ref={carrotRef}
@@ -257,7 +257,7 @@ export default function HeroSection() {
       
       {/* 스크롤 다운 인디케이터 - 섹션 콘텐츠 밖으로 이동 */}
       <motion.div
-        className="absolute bottom-20 sm:bottom-20 left-1/2 transform -translate-x-1/2 z-20"
+        className="absolute bottom-16 sm:bottom-20 left-1/2 transform -translate-x-1/2 z-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.8 }}
