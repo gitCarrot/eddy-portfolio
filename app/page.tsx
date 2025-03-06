@@ -1,101 +1,237 @@
-import Image from "next/image";
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import Navbar from './components/Navbar';
+import HeroSection from './components/HeroSection';
+import AboutSection from './components/AboutSection';
+import ProjectsSection from './components/ProjectsSection';
+import SkillsSection from './components/SkillsSection';
+import ExperienceSection from './components/ExperienceSection';
+import ContactSection from './components/ContactSection';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [isLoading, setIsLoading] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    // Simulate loading time
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    // Add classes for scroll snap
+    document.documentElement.classList.add('has-scroll-snap');
+    document.body.classList.add('has-scroll-snap');
+    
+    return () => {
+      clearTimeout(timeout);
+      document.documentElement.classList.remove('has-scroll-snap');
+      document.body.classList.remove('has-scroll-snap');
+    };
+  }, []);
+
+  return (
+    <>
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <motion.div
+            key="loader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 flex flex-col items-center justify-center bg-black z-50 text-white"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <motion.div
+              className="mb-8 text-3xl font-bold tracking-wide"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+            >
+              EDDY JEON
+            </motion.div>
+            
+            <motion.div
+              className="relative w-16 h-16"
+            >
+              <motion.div
+                className="absolute inset-0 rounded-full bg-indigo-600"
+                initial={{ scale: 0 }}
+                animate={{ scale: [0, 1, 0] }}
+                transition={{ 
+                  duration: 1.5, 
+                  repeat: Infinity,
+                  repeatDelay: 0.5,
+                  ease: [0.22, 1, 0.36, 1]
+                }}
+              />
+              <motion.div
+                className="absolute inset-0 rounded-full border-2 border-white opacity-40"
+                initial={{ scale: 0 }}
+                animate={{ scale: [0, 1.5] }}
+                transition={{ 
+                  duration: 1.5, 
+                  repeat: Infinity,
+                  repeatDelay: 0.5,
+                  ease: [0.22, 1, 0.36, 1]
+                }}
+              />
+            </motion.div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="relative"
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            <Navbar />
+            <div className="continuous-bg"></div>
+            <main className="scroll-container" ref={containerRef}>
+              <motion.section 
+                id="hero" 
+                className="section text-white"
+                style={{ background: "transparent" }}
+              >
+                <div className="section-content">
+                  <HeroSection />
+                </div>
+                <motion.div 
+                  className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <a href="#about" className="text-white/70 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                  </a>
+                </motion.div>
+              </motion.section>
+              
+              <motion.section 
+                id="about" 
+                className="section text-white"
+                style={{ 
+                  background: "rgba(17, 24, 39, 0.3)",
+                  backdropFilter: "blur(6px)" 
+                }}
+              >
+                <div className="section-content">
+                  <AboutSection />
+                </div>
+                <motion.div 
+                  className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-50"
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <a href="#projects" className="text-white/70 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                  </a>
+                </motion.div>
+              </motion.section>
+              
+              <motion.section 
+                id="projects" 
+                className="section text-white"
+                style={{ 
+                  background: "rgba(17, 24, 39, 0.5)",
+                  backdropFilter: "blur(8px)" 
+                }}
+              >
+                <div className="section-content overflow-visible py-12 md:py-0">
+                  <ProjectsSection />
+                </div>
+                <motion.div 
+                  className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-50"
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <a href="#skills" className="text-white/70 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                  </a>
+                </motion.div>
+              </motion.section>
+              
+              <motion.section
+                id="experience" 
+                className="section text-white"
+                style={{ 
+                  background: "rgba(67, 56, 202, 0.3)",
+                  backdropFilter: "blur(8px)" 
+                }}
+              >
+                <div className="section-content">
+                  <ExperienceSection />
+                </div>
+                <motion.div 
+                  className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-50"
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <a href="#skills" className="text-white/70 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                  </a>
+                </motion.div>
+              </motion.section>
+              
+              <motion.section
+                id="skills" 
+                className="section text-white"
+                style={{ 
+                  background: "rgba(31, 41, 55, 0.4)",
+                  backdropFilter: "blur(8px)" 
+                }}
+              >
+                <div className="section-content">
+                  <SkillsSection />
+                </div>
+                <motion.div 
+                  className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-50"
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <a href="#contact" className="text-white/70 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                  </a>
+                </motion.div>
+              </motion.section>
+              
+              <motion.section 
+                id="contact" 
+                className="section text-white"
+                style={{ 
+                  background: "rgba(3, 7, 18, 0.6)",
+                  backdropFilter: "blur(8px)" 
+                }}
+              >
+                <div className="section-content">
+                  <ContactSection />
+                </div>
+                <motion.footer
+                  className="absolute bottom-4 left-0 right-0 py-4 text-center text-sm text-zinc-400"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <p>© {new Date().getFullYear()} Eddy Jeon. All rights reserved.</p>
+                </motion.footer>
+              </motion.section>
+            </main>
+            
+            {/* Footer moved to the contact section */}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

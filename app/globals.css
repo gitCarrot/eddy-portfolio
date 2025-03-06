@@ -3,6 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --accent-blue: #3b82f6;
+  --accent-purple: #8b5cf6;
+  --text-primary: #171717;
+  --text-secondary: #6b7280;
 }
 
 @theme inline {
@@ -16,11 +20,243 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --text-primary: #ededed;
+    --text-secondary: #9ca3af;
   }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans);
+  overflow-x: hidden;
+}
+
+/* Scroll snapping for section transitions */
+html {
+  height: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.scroll-container {
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* For iOS smooth scrolling */
+}
+
+.section {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 1rem;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;
+  transition: background 1.5s cubic-bezier(0.22, 1, 0.36, 1), 
+              background-color 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: background, background-color;
+  transform: translateZ(0);
+  z-index: 1;
+}
+
+/* For continuous gradient background */
+.continuous-bg {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #030712 0%, #111827 25%, #0f172a 50%, #1e1b4b 75%, #0f172a 100%);
+  background-size: 400% 400%;
+  z-index: -20;
+  opacity: 1;
+  animation: gradientAnimation 15s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
+/* Gradient overlays for smooth transitions */
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 15vh;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+}
+
+.section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 15vh;
+  background: linear-gradient(to top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.3;
+}
+
+.section-content {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 10;
+  position: relative;
+}
+
+/* Smooth section transitions */
+.section-transition {
+  transition: background-color 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 120px 1rem 60px;
+    scroll-snap-align: start;
+  }
+  
+  /* Fix for projects section on mobile */
+  #projects {
+    scroll-snap-align: start;
+    min-height: 100vh;
+    height: auto;
+    padding-bottom: 120px;
+    padding-top: 120px;
+  }
+  
+  /* Make project cards easier to interact with on mobile */
+  #projects .section-content {
+    padding-bottom: 60px;
+  }
+}
+
+/* Add page transition effects */
+.page-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: black;
+  transform-origin: bottom;
+  z-index: 100;
+}
+
+/* Custom cursor for scrolling indicator */
+.scroll-indicator {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  width: 36px;
+  height: 64px;
+  border-radius: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* 3D perspective for cards */
+.perspective-card {
+  transform-style: preserve-3d;
+  perspective: 2000px;
+}
+
+.scroll-indicator::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  margin-top: 8px;
+  animation: scrollIndicator 2s infinite;
+}
+
+@keyframes scrollIndicator {
+  0% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(20px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+}
+
+/* Inter-section transitions */
+.section-transition-enter {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.section-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.section-transition-exit {
+  opacity: 1;
+}
+
+.section-transition-exit-active {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
 }
