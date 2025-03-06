@@ -87,27 +87,18 @@ export default function Home() {
             className="relative"
           >
             <Navbar />
-            <div className="continuous-bg"></div>
             <main className="scroll-container" ref={containerRef}>
               <motion.section 
                 id="hero" 
                 className="section text-white"
-                style={{ background: "transparent" }}
+                style={{ 
+                  background: "transparent",
+                  backdropFilter: "none" 
+                }}
               >
                 <div className="section-content">
                   <HeroSection />
                 </div>
-                <motion.div 
-                  className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <a href="#about" className="text-white/70 hover:text-white transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                    </svg>
-                  </a>
-                </motion.div>
               </motion.section>
               
               <motion.section 
@@ -122,7 +113,7 @@ export default function Home() {
                   <AboutSection />
                 </div>
                 <motion.div 
-                  className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-50"
+                  className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-50 z-20"
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
@@ -146,7 +137,7 @@ export default function Home() {
                   <ProjectsSection />
                 </div>
                 <motion.div 
-                  className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-50"
+                  className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-50 z-20"
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
@@ -170,7 +161,7 @@ export default function Home() {
                   <ExperienceSection />
                 </div>
                 <motion.div 
-                  className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-50"
+                  className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-50 z-20"
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
@@ -194,7 +185,7 @@ export default function Home() {
                   <SkillsSection />
                 </div>
                 <motion.div 
-                  className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-50"
+                  className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-50 z-20"
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >

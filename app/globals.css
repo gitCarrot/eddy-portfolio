@@ -7,13 +7,10 @@
   --accent-purple: #8b5cf6;
   --text-primary: #171717;
   --text-secondary: #6b7280;
-}
-
-@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -54,20 +51,21 @@ body {
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch; /* For iOS smooth scrolling */
+  position: relative;
 }
 
 .section {
+  position: relative;
   min-height: 100vh;
   width: 100%;
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100px 1rem;
+  padding: 60px 20px 60px;
+  overflow: hidden;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  overflow: hidden;
   transition: background 1.5s cubic-bezier(0.22, 1, 0.36, 1), 
               background-color 1.5s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: background, background-color;
@@ -92,37 +90,38 @@ body {
   100% { background-position: 0% 50% }
 }
 
-/* Gradient overlays for smooth transitions */
-.section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 15vh;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.5;
+/* 섹션 배경 오버레이 제거 */
+.section::before,
+.section::after {
+  display: none;
 }
 
-.section::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 15vh;
-  background: linear-gradient(to top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 100%);
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.3;
+/* Hero 섹션 특별 스타일 */
+#hero {
+  background: transparent;
+  position: relative;
+  z-index: 10;
+  padding-bottom: 60px;
+}
+
+#hero .section-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 0;
+  padding-bottom: 20px;
+}
+
+/* 프로젝트 섹션 스타일 조정 */
+#projects {
+  padding-bottom: 120px; /* 하단 패딩 증가 */
 }
 
 .section-content {
-  max-width: 1200px;
   width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 20px 0;
   z-index: 10;
   position: relative;
 }
@@ -134,8 +133,16 @@ body {
 
 @media (max-width: 768px) {
   .section {
-    padding: 120px 1rem 60px;
-    scroll-snap-align: start;
+    padding: 40px 16px 70px;
+  }
+  
+  #hero {
+    padding-bottom: 50px;
+  }
+  
+  #hero .section-content {
+    padding-top: 0;
+    padding-bottom: 10px;
   }
   
   /* Fix for projects section on mobile */
@@ -143,13 +150,17 @@ body {
     scroll-snap-align: start;
     min-height: 100vh;
     height: auto;
-    padding-bottom: 120px;
-    padding-top: 120px;
+    padding-bottom: 100px;
+    padding-top: 100px;
   }
   
   /* Make project cards easier to interact with on mobile */
   #projects .section-content {
     padding-bottom: 60px;
+  }
+  
+  .section-content {
+    padding: 10px 0;
   }
 }
 
@@ -167,24 +178,16 @@ body {
 
 /* Custom cursor for scrolling indicator */
 .scroll-indicator {
-  position: fixed;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 40;
-  width: 36px;
-  height: 64px;
-  border-radius: 18px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  width: 30px;
+  height: 50px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
   display: flex;
   justify-content: center;
-  pointer-events: none;
-}
-
-/* 3D perspective for cards */
-.perspective-card {
-  transform-style: preserve-3d;
-  perspective: 2000px;
+  align-items: flex-start;
+  padding-top: 8px;
+  z-index: 20;
 }
 
 .scroll-indicator::before {
