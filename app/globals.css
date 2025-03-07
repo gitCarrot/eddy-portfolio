@@ -3,6 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 모바일 확대 방지 스타일 - 수정된 버전 */
+html, body {
+  -webkit-text-adjust: 100%;
+}
+
 :root {
   --background: #f8faff; /* 더 밝은 배경색 */
   --foreground: #1a202c; /* 더 진한 텍스트 색상 */

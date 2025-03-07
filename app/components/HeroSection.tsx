@@ -14,6 +14,7 @@ export default function HeroSection() {
   const [isCarrotRunning, setIsCarrotRunning] = useState(false); // 당근 술래잡기 상태
   const [runningCarrotPosition, setRunningCarrotPosition] = useState({ x: 0, y: 0 }); // 도망가는 당근 위치
   const [runningCarrotInterval, setRunningCarrotInterval] = useState<NodeJS.Timeout | null>(null); // 당근 이동 인터벌
+  const [lastTapTime, setLastTapTime] = useState(0); // 마지막 탭 시간 추적
   const carrotRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -53,40 +54,13 @@ export default function HeroSection() {
     };
   }, [runningCarrotInterval]);
 
-  // 더블 탭 방지 함수
-  useEffect(() => {
-    // 더블 탭 방지 함수
-    const preventDoubleTapZoom = (e: TouchEvent) => {
-      // 기본 동작 방지
-      e.preventDefault();
-      
-      // 필요한 경우 여기에 추가 로직 구현
-    };
-
-    // 모바일 터치 이벤트 리스너 등록
-    const section = sectionRef.current;
-    if (section) {
-      section.addEventListener('touchstart', preventDoubleTapZoom, { passive: false });
-    }
-
-    // 클린업 함수
-    return () => {
-      if (section) {
-        section.removeEventListener('touchstart', preventDoubleTapZoom);
-      }
-    };
-  }, []);
-
-  // CSS 스타일을 적용하는 함수
+  // 더블 탭 방지 함수 - 수정된 버전
   useEffect(() => {
     // 모바일에서 확대 방지를 위한 스타일 추가
     const style = document.createElement('style');
     style.innerHTML = `
-      * {
-        touch-action: manipulation;
-      }
       #hero {
-        touch-action: manipulation;
+        touch-action: pan-x pan-y;
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         user-select: none;
@@ -109,7 +83,7 @@ export default function HeroSection() {
     // 일정 간격으로 당근 위치 변경
     const interval = setInterval(() => {
       moveRunningCarrot();
-    }, 800); // 0.8초마다 위치 변경
+    }, 500); // 0.8초마다 위치 변경
     
     setRunningCarrotInterval(interval);
   };
@@ -276,12 +250,26 @@ export default function HeroSection() {
     }, hideDelay);
   };
   
+  // 더블 탭 감지 및 처리
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const now = Date.now();
+    const DOUBLE_TAP_DELAY = 300; // 더블 탭으로 간주할 시간 간격 (밀리초)
+    
+    if (now - lastTapTime < DOUBLE_TAP_DELAY) {
+      // 더블 탭 감지됨 - 기본 동작 방지
+      e.preventDefault();
+    }
+    
+    // 마지막 탭 시간 업데이트
+    setLastTapTime(now);
+  };
+  
   return (
     <section 
       id="hero" 
       className="section relative overflow-hidden" 
       ref={sectionRef}
-      onTouchStart={(e) => e.stopPropagation()}
+      onTouchStart={handleTouchStart}
     >
       {/* 섹션 콘텐츠 */}
       <div ref={containerRef} className="section-content flex flex-col items-center justify-center pt-0 sm:pt-0 pb-20 sm:pb-24 relative z-10 min-h-screen">
@@ -304,6 +292,10 @@ export default function HeroSection() {
               onMouseEnter={() => setCarrotHover(true)}
               onMouseLeave={() => setCarrotHover(false)}
               onClick={handleCarrotClick}
+              onTouchEnd={(e) => {
+                e.stopPropagation();
+                handleCarrotClick();
+              }}
               style={{ 
                 transformOrigin: 'center',
                 cursor: 'pointer',
@@ -336,6 +328,10 @@ export default function HeroSection() {
                 scale: { duration: 0.8, repeat: Infinity }
               }}
               onClick={handleRunningCarrotClick}
+              onTouchEnd={(e) => {
+                e.stopPropagation();
+                handleRunningCarrotClick();
+              }}
               style={{ 
                 cursor: 'pointer',
                 fontSize: '4rem',
