@@ -113,7 +113,7 @@ export default function Home() {
                   <AboutSection />
                 </div>
                 <motion.div 
-                  className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-50 z-20 pb-8"
+                  className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-50 z-20 pb-12"
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
