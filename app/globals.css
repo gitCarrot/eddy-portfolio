@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #f8faff; /* 더 밝은 배경색 */
@@ -93,6 +96,8 @@
 html {
   scroll-behavior: smooth;
   height: 100%;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -102,6 +107,8 @@ body {
   height: 100%;
   overflow-x: hidden;
   transition: background-color 0.5s ease;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
 }
 
 .scroll-container {
