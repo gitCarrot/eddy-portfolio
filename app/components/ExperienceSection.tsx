@@ -22,12 +22,11 @@ const experiences: Experience[] = [
 
 export default function ExperienceSection() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
-
+  
   // 화면 크기에 따라 모바일 여부 감지
   useEffect(() => {
     const checkMobile = () => {
-      // setIsMobile(window.innerWidth < 768);
+      // 모바일 감지 로직이 필요하면 여기에 구현
     };
     
     // 초기 체크
@@ -42,173 +41,175 @@ export default function ExperienceSection() {
   }, []);
 
   const handleNext = () => {
-    setDirection(1);
     setActiveIndex((prev) => (prev + 1) % experiences.length);
   };
 
   const handlePrev = () => {
-    setDirection(-1);
     setActiveIndex((prev) => (prev - 1 + experiences.length) % experiences.length);
   };
 
-  const cardVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-      scale: 0.8,
-      rotateY: direction > 0 ? 45 : -45,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      scale: 1,
-      rotateY: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1]
-      }
-    },
-    exit: (direction: number) => ({
-      x: direction > 0 ? -1000 : 1000,
-      opacity: 0,
-      scale: 0.8,
-      rotateY: direction > 0 ? -45 : 45,
-      transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1]
-      }
-    })
-  };
-
-  const indicatorVariants = {
-    inactive: { scale: 1, opacity: 0.5 },
-    active: { 
-      scale: 1.2, 
-      opacity: 1,
-      transition: { duration: 0.3 }
-    }
-  };
-
   return (
-    <div className="w-full">
+    <div className="w-full py-12 md:py-16 relative">
       <motion.div
-        className="mb-16 text-center"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        className="max-w-5xl mx-auto px-0"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.8 }}
       >
-        <h2 className="text-4xl font-bold mb-6">Experience</h2>
-        <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
-          My professional journey and work experience
-        </p>
-      </motion.div>
-
-      {/* 고정된 높이 대신 min-height 사용하고 overflow-visible로 변경 */}
-      <div className="relative min-h-[440px] overflow-visible mb-16">
-        <AnimatePresence initial={false} custom={direction} mode="wait">
-          <motion.div
-            key={activeIndex}
-            custom={direction}
-            variants={cardVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="w-full"
-            style={{ perspective: 2000 }}
-          >
-            <div className="max-w-4xl mx-auto perspective-card">
-              {/* 모바일에서 패딩 조정 */}
-              <div className="bg-gradient-to-br from-indigo-900/30 to-purple-900/20 backdrop-blur-sm border border-white/10 rounded-lg overflow-hidden shadow-xl p-1">
-                {/* Card header - 모바일에서 패딩 줄임 */}
-                <div className="bg-black/30 p-4 md:p-6 rounded-t-lg border-b border-white/10">
-                  <div className="flex flex-col md:flex-row justify-between mb-2">
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2 md:mb-0">{experiences[activeIndex].position}</h3>
-                    <span className="text-indigo-300 font-medium text-sm md:text-base">{experiences[activeIndex].duration}</span>
-                  </div>
-                  <div className="flex flex-col md:flex-row md:items-center justify-between">
-                    <p className="text-lg md:text-xl text-white/90">{experiences[activeIndex].company}</p>
-                    <p className="text-zinc-400 italic text-sm">{experiences[activeIndex].location}</p>
+        {/* Section heading */}
+        <div className="mb-10 md:mb-16 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4 section-title">Work Experience</h2>
+          <p className="text-base md:text-lg text-[var(--text-primary)] dark:text-zinc-300 max-w-2xl mx-auto font-medium">
+            My professional journey and the projects I&apos;ve contributed to.
+          </p>
+        </div>
+        
+        {/* Experience cards */}
+        <div className="relative">
+          {/* Navigation buttons */}
+          {experiences.length > 1 &&
+            <div className="flex justify-between absolute top-1/2 -translate-y-1/2 w-full z-10">
+              <motion.button
+                onClick={handlePrev}
+                className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10 flex items-center justify-center text-[var(--text-primary)] dark:text-white"
+                whileHover={{ scale: 1.1, backgroundColor: "rgba(99, 102, 241, 0.2)" }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </motion.button>
+              
+              <motion.button
+                onClick={handleNext}
+                className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10 flex items-center justify-center text-[var(--text-primary)] dark:text-white"
+                whileHover={{ scale: 1.1, backgroundColor: "rgba(99, 102, 241, 0.2)" }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                </svg>
+              </motion.button>
+            </div>
+          }
+          
+          {/* Experience card */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              initial={{ 
+                opacity: 0, 
+                y: 20
+              }}
+              animate={{ 
+                opacity: 1, 
+                y: 0,
+                transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+              }}
+              exit={{ 
+                opacity: 0, 
+                y: -20,
+                transition: { duration: 0.3 }
+              }}
+              className="bg-gradient-to-br from-white/40 to-white/20 dark:from-white/10 dark:to-white/5 backdrop-blur-md border border-white/30 dark:border-white/10 rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-8 lg:p-10 shadow-xl w-full"
+            >
+              <div className="flex flex-col md:flex-row md:items-start gap-5 md:gap-8">
+                {/* Company logo or icon - 모바일에서는 작게 표시하고 상단에 배치 */}
+                <div className="flex-shrink-0 flex md:block justify-center">
+                  <div className="w-14 h-14 md:w-20 md:h-20 rounded-xl md:rounded-2xl bg-gradient-to-br from-indigo-500/30 to-purple-500/30 flex items-center justify-center shadow-inner">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 md:h-10 md:w-10 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd" />
+                      <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
+                    </svg>
                   </div>
                 </div>
                 
-                {/* Card content - 모바일에서 패딩 줄임 */}
-                <div className="p-4 md:p-6 text-zinc-300">
-                  <ul className="list-disc list-inside space-y-2 md:space-y-3 mb-6 md:mb-8 text-sm md:text-base">
-                    {experiences[activeIndex].description.map((item, index) => (
-                      <motion.li 
-                        key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
-                      >
-                        {item}
-                      </motion.li>
-                    ))}
-                  </ul>
+                {/* Experience details */}
+                <div className="flex-grow">
+                  {/* 모바일에서는 수직 레이아웃, 데스크톱에서는 수평 레이아웃 */}
+                  <div className="flex flex-col md:flex-row md:items-start justify-between mb-4 md:mb-6">
+                    <div>
+                      <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-[var(--text-primary)] dark:text-white mb-1">{experiences[activeIndex].position}</h3>
+                      <p className="text-base md:text-lg font-medium text-indigo-600 dark:text-indigo-400 mb-2">{experiences[activeIndex].company}</p>
+                    </div>
+                    <div className="mt-1 md:mt-0 md:text-right bg-white/20 dark:bg-white/10 px-3 py-1.5 md:px-4 md:py-2 rounded-lg self-start text-xs md:text-sm">
+                      <p className="font-medium text-[var(--text-primary)] dark:text-zinc-300">{experiences[activeIndex].duration}</p>
+                      <p className="font-medium text-[var(--text-primary)] dark:text-zinc-300">{experiences[activeIndex].location}</p>
+                    </div>
+                  </div>
                   
-                  <div className="flex flex-wrap gap-2">
-                    {experiences[activeIndex].technologies.map((tech, index) => (
-                      <motion.span 
-                        key={index}
-                        className="bg-indigo-900/40 text-indigo-200 text-xs py-1 px-2 md:px-3 rounded-full backdrop-blur-sm"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3, delay: index * 0.05 + 0.5 }}
-                        whileHover={{ 
-                          backgroundColor: "rgba(99, 102, 241, 0.4)", 
-                          scale: 1.05,
-                        }}
-                      >
-                        {tech}
-                      </motion.span>
-                    ))}
+                  <div className="mb-5 md:mb-8">
+                    <h4 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-[var(--text-primary)] dark:text-white flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 mr-2 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M6 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm.293 9.293a1 1 0 001.414 0L10 12.414l2.293 2.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 000 1.414z" clipRule="evenodd" />
+                      </svg>
+                      Responsibilities
+                    </h4>
+                    <ul className="space-y-2 md:space-y-3">
+                      {experiences[activeIndex].description.map((item, index) => (
+                        <motion.li 
+                          key={index} 
+                          className="text-[var(--text-primary)] dark:text-zinc-300 font-medium pl-5 md:pl-6 relative text-sm md:text-base"
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                        >
+                          <span className="absolute left-0 top-1.5 md:top-2 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-indigo-500"></span>
+                          {item}
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-[var(--text-primary)] dark:text-white flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 mr-2 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                      Technologies
+                    </h4>
+                    <div className="flex flex-wrap gap-1.5 md:gap-2">
+                      {experiences[activeIndex].technologies.map((tech, index) => (
+                        <motion.span 
+                          key={index} 
+                          className="px-2.5 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 font-medium"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: index * 0.05 }}
+                          whileHover={{ scale: 1.05, backgroundColor: "rgba(99, 102, 241, 0.3)" }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
+            </motion.div>
+          </AnimatePresence>
+          
+          {/* Pagination dots */}
+          {experiences.length > 1 && (
+            <div className="flex justify-center mt-6 md:mt-8 gap-2">
+              {experiences.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setActiveIndex(index);
+                  }}
+                  className={`w-2.5 h-2.5 md:w-3 md:h-3 rounded-full transition-all ${
+                    index === activeIndex 
+                      ? 'bg-indigo-500 scale-125' 
+                      : 'bg-zinc-400/30 hover:bg-zinc-400/50'
+                  }`}
+                  aria-label={`Go to experience ${index + 1}`}
+                />
+              ))}
             </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Navigation buttons - 모바일에서 위치 조정 */}
-        <motion.button
-          className="absolute left-2 md:left-10 top-1/3 md:top-1/2 transform -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-black/30 backdrop-blur-sm border border-white/10 text-white/70 hover:text-white hover:bg-indigo-900/40 transition-colors z-10"
-          onClick={handlePrev}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M15 18l-6-6 6-6"/>
-          </svg>
-        </motion.button>
-        
-        <motion.button
-          className="absolute right-2 md:right-10 top-1/3 md:top-1/2 transform -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-black/30 backdrop-blur-sm border border-white/10 text-white/70 hover:text-white hover:bg-indigo-900/40 transition-colors z-10"
-          onClick={handleNext}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M9 18l6-6-6-6"/>
-          </svg>
-        </motion.button>
-      </div>
-
-      {/* Indicators */}
-      <div className="flex justify-center mt-4 md:mt-8 gap-2">
-        {experiences.map((_, index) => (
-          <motion.button
-            key={index}
-            className={`w-3 h-3 rounded-full ${activeIndex === index ? 'bg-indigo-500' : 'bg-zinc-600'}`}
-            onClick={() => {
-              setDirection(index > activeIndex ? 1 : -1);
-              setActiveIndex(index);
-            }}
-            variants={indicatorVariants}
-            animate={activeIndex === index ? "active" : "inactive"}
-          />
-        ))}
-      </div>
+          )}
+        </div>
+      </motion.div>
     </div>
   );
 }

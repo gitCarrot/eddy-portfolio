@@ -86,15 +86,19 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="relative"
           >
+            {/* 배경 그라디언트 요소들 - 연한 파스텔톤 애니메이션 */}
+            <div id="gradient-bg-hero" className="continuous-bg bg-hero" style={{ opacity: 1 }}></div>
+            <div id="gradient-bg-about" className="continuous-bg bg-about" style={{ opacity: 0 }}></div>
+            <div id="gradient-bg-projects" className="continuous-bg bg-projects" style={{ opacity: 0 }}></div>
+            <div id="gradient-bg-experience" className="continuous-bg bg-experience" style={{ opacity: 0 }}></div>
+            <div id="gradient-bg-skills" className="continuous-bg bg-skills" style={{ opacity: 0 }}></div>
+            <div id="gradient-bg-contact" className="continuous-bg bg-contact" style={{ opacity: 0 }}></div>
+            
             <Navbar />
             <main className="scroll-container" ref={containerRef}>
               <motion.section 
                 id="hero" 
                 className="section text-white"
-                style={{ 
-                  background: "transparent",
-                  backdropFilter: "none" 
-                }}
               >
                 <div className="section-content">
                   <HeroSection />
@@ -104,20 +108,16 @@ export default function Home() {
               <motion.section 
                 id="about" 
                 className="section text-white"
-                style={{ 
-                  background: "rgba(17, 24, 39, 0.3)",
-                  backdropFilter: "blur(6px)" 
-                }}
               >
                 <div className="section-content">
                   <AboutSection />
                 </div>
                 <motion.div 
-                  className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-50 z-20"
+                  className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-50 z-20 pb-8"
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <a href="#projects" className="text-white/70 hover:text-white transition-colors">
+                  <a href="#projects" className="text-[var(--text-primary)] dark:text-white/70 hover:text-[var(--accent-blue)] dark:hover:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                     </svg>
@@ -128,20 +128,16 @@ export default function Home() {
               <motion.section 
                 id="projects" 
                 className="section text-white"
-                style={{ 
-                  background: "rgba(17, 24, 39, 0.5)",
-                  backdropFilter: "blur(8px)" 
-                }}
               >
                 <div className="section-content overflow-visible py-12 md:py-0">
                   <ProjectsSection />
                 </div>
                 <motion.div 
-                  className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-50 z-20"
+                  className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-50 z-20 pb-8"
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <a href="#skills" className="text-white/70 hover:text-white transition-colors">
+                  <a href="#skills" className="text-[var(--text-primary)] dark:text-white/70 hover:text-[var(--accent-blue)] dark:hover:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                     </svg>
@@ -152,20 +148,16 @@ export default function Home() {
               <motion.section
                 id="experience" 
                 className="section text-white"
-                style={{ 
-                  background: "rgba(67, 56, 202, 0.3)",
-                  backdropFilter: "blur(8px)" 
-                }}
               >
                 <div className="section-content">
                   <ExperienceSection />
                 </div>
                 <motion.div 
-                  className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-50 z-20"
+                  className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-50 z-20 pb-8"
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <a href="#skills" className="text-white/70 hover:text-white transition-colors">
+                  <a href="#skills" className="text-[var(--text-primary)] dark:text-white/70 hover:text-[var(--accent-blue)] dark:hover:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                     </svg>
@@ -176,20 +168,16 @@ export default function Home() {
               <motion.section
                 id="skills" 
                 className="section text-white"
-                style={{ 
-                  background: "rgba(31, 41, 55, 0.4)",
-                  backdropFilter: "blur(8px)" 
-                }}
               >
                 <div className="section-content">
                   <SkillsSection />
                 </div>
                 <motion.div 
-                  className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-50 z-20"
+                  className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-50 z-20 pb-8"
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <a href="#contact" className="text-white/70 hover:text-white transition-colors">
+                  <a href="#contact" className="text-[var(--text-primary)] dark:text-white/70 hover:text-[var(--accent-blue)] dark:hover:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                     </svg>
@@ -200,10 +188,6 @@ export default function Home() {
               <motion.section 
                 id="contact" 
                 className="section text-white"
-                style={{ 
-                  background: "rgba(3, 7, 18, 0.6)",
-                  backdropFilter: "blur(8px)" 
-                }}
               >
                 <div className="section-content">
                   <ContactSection />

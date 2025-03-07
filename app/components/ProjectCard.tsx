@@ -63,111 +63,71 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <motion.div
       ref={cardRef}
-      className="group relative rounded-2xl overflow-hidden bg-zinc-800/70 backdrop-blur-sm shadow-lg hover:shadow-xl border border-zinc-700/50 transition-all duration-300 h-full"
-      style={{ 
-        // Apply 3D effects only on desktop
-        ...(isMobile ? {} : {
-          rotateX,
-          rotateY,
-          perspective: 1000,
-          transformStyle: 'preserve-3d'
-        })
+      className="perspective-card w-full rounded-xl overflow-hidden bg-white/50 dark:bg-white/5 backdrop-blur-sm border border-white/30 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300"
+      style={{
+        rotateX: isMobile ? 0 : rotateX,
+        rotateY: isMobile ? 0 : rotateY,
+        transformStyle: "preserve-3d",
       }}
-      whileHover={{ scale: isMobile ? 1.01 : 1.02, boxShadow: "0 20px 40px -10px rgba(99, 102, 241, 0.2)" }}
+      whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => {}}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="w-full aspect-[16/9] md:aspect-[4/3] relative rounded-t-2xl overflow-hidden">
-        <motion.div
-          className="w-full h-full"
-          style={{
-            transformStyle: 'preserve-3d',
-            transform: isMobile ? 'none' : 'translateZ(20px)'
-          }}
-        >
-          {/* If no actual image exists, use a gradient background */}
-          {project.imageUrl.startsWith('/project-') ? (
-            <div className={`w-full h-full flex items-center justify-center bg-gradient-to-br ${
-              project.id % 3 === 0 ? 'from-blue-500 to-purple-600' :
-              project.id % 3 === 1 ? 'from-emerald-500 to-teal-600' :
-              'from-orange-500 to-amber-600'
-            }`}>
-              <span className="text-white text-4xl font-bold">{project.title.substring(0, 2)}</span>
-            </div>
-          ) : (
-            <Image
-              src={project.imageUrl}
-              alt={project.title}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              style={{ objectFit: 'cover' }}
-              className="transition-transform duration-500 group-hover:scale-105"
-            />
-          )}
-        </motion.div>
-        
-        {/* Action buttons - always visible on mobile, hover on desktop */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end justify-center p-3 md:p-4 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
-          <div className="flex gap-2 md:gap-4 w-full justify-center">
-            {project.projectUrl && (
-              <motion.a
-                href={project.projectUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full bg-white text-black px-4 md:px-6 py-1.5 md:py-2 text-xs md:text-sm font-medium flex-1 md:flex-none text-center"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                View Live
-              </motion.a>
-            )}
-            
-            {project.githubUrl && (
-              <motion.a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full bg-transparent border border-white text-white px-4 md:px-6 py-1.5 md:py-2 text-xs md:text-sm font-medium flex-1 md:flex-none text-center"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                GitHub
-              </motion.a>
-            )}
-          </div>
-        </div>
+      <div className="relative aspect-[16/9] w-full overflow-hidden">
+        <Image
+          src={project.imageUrl}
+          alt={project.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transform transition-transform duration-500 hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
       </div>
       
-      <motion.div 
-        className="p-4 md:p-6"
-        style={{
-          transformStyle: 'preserve-3d',
-          transform: isMobile ? 'none' : 'translateZ(30px)'
-        }}
-      >
-        <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2 text-white">{project.title}</h3>
-        <p className="text-sm md:text-base text-zinc-300 mb-3 md:mb-4">{project.description}</p>
+      <div className="p-6">
+        <h3 className="text-xl md:text-2xl font-bold mb-2 text-[var(--text-primary)] dark:text-white">{project.title}</h3>
+        <p className="text-sm md:text-base mb-4 text-[var(--text-primary)] dark:text-zinc-300">{project.description}</p>
         
-        <div className="flex flex-wrap gap-1.5 md:gap-2">
+        <div className="flex flex-wrap gap-2 mb-4">
           {project.technologies.map((tech, index) => (
-            <motion.span 
-              key={index}
-              className="text-[10px] md:text-xs font-[family-name:var(--font-geist-mono)] px-2 md:px-3 py-0.5 md:py-1 rounded-full bg-zinc-700/50 text-zinc-200"
-              whileHover={{ 
-                backgroundColor: "#6366f1", 
-                color: "white",
-                scale: 1.05,
-              }}
-              transition={{ duration: 0.2 }}
+            <span 
+              key={index} 
+              className="text-xs px-2 py-1 rounded-full bg-[var(--accent-blue)]/30 dark:bg-blue-900/30 text-[var(--text-primary)] dark:text-blue-300 font-medium"
             >
               {tech}
-            </motion.span>
+            </span>
           ))}
         </div>
-      </motion.div>
+        
+        <div className="flex justify-between mt-4">
+          <a 
+            href={project.githubUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-sm flex items-center gap-1 text-[var(--text-primary)] dark:text-zinc-400 hover:text-[var(--accent-blue)] dark:hover:text-blue-400 transition-colors font-medium"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            Code
+          </a>
+          
+          <a 
+            href={project.projectUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-sm flex items-center gap-1 text-[var(--text-primary)] dark:text-zinc-400 hover:text-[var(--accent-blue)] dark:hover:text-blue-400 transition-colors font-medium"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            Live Demo
+          </a>
+        </div>
+      </div>
     </motion.div>
   );
 }

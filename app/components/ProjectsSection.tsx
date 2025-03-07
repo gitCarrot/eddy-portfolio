@@ -35,8 +35,8 @@ export default function ProjectsSection() {
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6">Projects</h2>
-        <p className="text-base md:text-lg text-zinc-400 max-w-2xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6 section-title">Projects</h2>
+        <p className="text-base md:text-lg text-[var(--text-primary)] dark:text-zinc-400 max-w-2xl mx-auto">
           Highlighting some of my recent work. Each project showcases my skills in 
           different areas of software development.
         </p>

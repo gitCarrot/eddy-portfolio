@@ -1,24 +1,92 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --accent-blue: #3b82f6;
-  --accent-purple: #8b5cf6;
-  --text-primary: #171717;
-  --text-secondary: #6b7280;
+  --background: #f8faff; /* 더 밝은 배경색 */
+  --foreground: #1a202c; /* 더 진한 텍스트 색상 */
+  --accent-blue: #3182ce; /* 더 진한 파스텔 블루 */
+  --accent-purple: #805ad5; /* 더 진한 파스텔 퍼플 */
+  --accent-green: #38a169; /* 더 진한 파스텔 그린 */
+  --accent-yellow: #d69e2e; /* 더 진한 파스텔 옐로우 */
+  --accent-mint: #4fd1c5; /* 민트색 추가 */
+  --accent-skyblue: #63b3ed; /* 하늘색 추가 */
+  --accent-lavender: #b794f4; /* 라벤더색 추가 */
+  --text-primary: #1a202c; /* 더 진한 다크 그레이 */
+  --text-secondary: #2d3748; /* 더 진한 미디엄 그레이 */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  
+  /* 그라디언트 색상 - 히어로 섹션 (더 밝은 파스텔톤) */
+  --gradient-hero-start: #c6e6ff; /* 매우 밝은 하늘색 */
+  --gradient-hero-mid: #e2f0ff;   /* 거의 흰색에 가까운 하늘색 */
+  --gradient-hero-end: #d7f8eb;   /* 매우 밝은 민트색 */
+  
+  /* 그라디언트 색상 - 어바웃 섹션 (더 밝은 파스텔톤) */
+  --gradient-about-start: #d7f8eb; /* 매우 밝은 민트색 */
+  --gradient-about-mid: #e6f7ff;   /* 매우 밝은 하늘색 */
+  --gradient-about-end: #e0f2fe;   /* 매우 밝은 블루 */
+  
+  /* 그라디언트 색상 - 프로젝트 섹션 (더 밝은 파스텔톤) */
+  --gradient-projects-start: #e0f2fe; /* 매우 밝은 블루 */
+  --gradient-projects-mid: #dbeafe;   /* 매우 밝은 인디고 */
+  --gradient-projects-end: #e0e7ff;   /* 매우 밝은 라벤더 */
+  
+  /* 그라디언트 색상 - 경험 섹션 (더 밝은 파스텔톤) */
+  --gradient-experience-start: #fef9c3; /* 매우 밝은 옐로우 */
+  --gradient-experience-mid: #ecfccb;   /* 매우 밝은 라임 */
+  --gradient-experience-end: #d7f8eb;   /* 매우 밝은 민트 */
+  
+  /* 그라디언트 색상 - 스킬 섹션 (더 밝은 파스텔톤) */
+  --gradient-skills-start: #dbeafe; /* 매우 밝은 블루 */
+  --gradient-skills-mid: #d7f8eb;   /* 매우 밝은 민트 */
+  --gradient-skills-end: #ecfccb;   /* 매우 밝은 라임 */
+  
+  /* 그라디언트 색상 - 컨택트 섹션 (더 밝은 파스텔톤) */
+  --gradient-contact-start: #e0e7ff; /* 매우 밝은 라벤더 */
+  --gradient-contact-mid: #dbeafe;   /* 매우 밝은 블루 */
+  --gradient-contact-end: #c6e6ff;   /* 매우 밝은 하늘색 */
+  
+  /* 섹션 배경 통일 */
+  --section-bg: rgba(255, 255, 255, 0.7); /* 라이트 모드 섹션 배경 */
+  --section-bg-dark: rgba(17, 24, 39, 0.7); /* 다크 모드 섹션 배경 */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
-    --text-primary: #ededed;
-    --text-secondary: #9ca3af;
+    --foreground: #f7fafc;
+    --text-primary: #f7fafc;
+    --text-secondary: #e2e8f0;
+    --accent-blue: #3b82f6;
+    --accent-purple: #8b5cf6;
+    --accent-green: #10b981;
+    --accent-yellow: #f59e0b;
+    
+    /* 다크 모드 그라디언트 색상 - 모든 섹션 어두운 검정색 계열로 통일 */
+    --gradient-hero-start: #121212; /* 어두운 검정 */
+    --gradient-hero-mid: #1a1a1a;   /* 약간 밝은 검정 */
+    --gradient-hero-end: #0f0f0f;   /* 매우 어두운 검정 */
+    
+    --gradient-about-start: #121212; /* 어두운 검정 */
+    --gradient-about-mid: #1a1a1a;   /* 약간 밝은 검정 */
+    --gradient-about-end: #0f0f0f;   /* 매우 어두운 검정 */
+    
+    --gradient-projects-start: #121212; /* 어두운 검정 */
+    --gradient-projects-mid: #1a1a1a;   /* 약간 밝은 검정 */
+    --gradient-projects-end: #0f0f0f;   /* 매우 어두운 검정 */
+    
+    --gradient-experience-start: #121212; /* 어두운 검정 */
+    --gradient-experience-mid: #1a1a1a;   /* 약간 밝은 검정 */
+    --gradient-experience-end: #0f0f0f;   /* 매우 어두운 검정 */
+    
+    --gradient-skills-start: #121212; /* 어두운 검정 */
+    --gradient-skills-mid: #1a1a1a;   /* 약간 밝은 검정 */
+    --gradient-skills-end: #0f0f0f;   /* 매우 어두운 검정 */
+    
+    --gradient-contact-start: #121212; /* 어두운 검정 */
+    --gradient-contact-mid: #1a1a1a;   /* 약간 밝은 검정 */
+    --gradient-contact-end: #0f0f0f;   /* 매우 어두운 검정 */
   }
 }
 
@@ -28,11 +96,12 @@ html {
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
   height: 100%;
   overflow-x: hidden;
+  transition: background-color 0.5s ease;
 }
 
 .scroll-container {
@@ -65,10 +134,8 @@ body {
   padding: 60px 20px 60px;
   overflow: hidden;
   scroll-snap-align: start;
-  scroll-snap-stop: always;
-  transition: background 1.5s cubic-bezier(0.22, 1, 0.36, 1), 
-              background-color 1.5s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 0.5s ease-in-out,
+  scroll-snap-stop: normal; /* always에서 normal로 변경하여 부드러운 스크롤 */
+  transition: opacity 0.5s ease-in-out,
               transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
   transform: translateZ(0);
@@ -77,23 +144,100 @@ body {
   z-index: 1;
   animation-timeline: --page-scroll;
   animation-range: entry 10% cover 30%;
+  background: transparent !important; /* 섹션 배경을 투명하게 설정 */
 }
 
 /* For continuous gradient background */
 .continuous-bg {
   position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, #030712 0%, #111827 25%, #0f172a 50%, #1e1b4b 75%, #0f172a 100%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* 섹션별 배경색 클래스 - 더 연한 파스텔톤으로 변경 */
+.bg-hero {
+  background: linear-gradient(to bottom right, var(--gradient-hero-start), var(--gradient-hero-mid), var(--gradient-hero-end));
+}
+
+.bg-about {
+  background: linear-gradient(to bottom right, var(--gradient-about-start), var(--gradient-about-mid), var(--gradient-about-end));
+}
+
+.bg-projects {
+  background: linear-gradient(to bottom right, var(--gradient-projects-start), var(--gradient-projects-mid), var(--gradient-projects-end));
+}
+
+.bg-experience {
+  background: linear-gradient(to bottom right, var(--gradient-experience-start), var(--gradient-experience-mid), var(--gradient-experience-end));
+}
+
+.bg-skills {
+  background: linear-gradient(to bottom right, var(--gradient-skills-start), var(--gradient-skills-mid), var(--gradient-skills-end));
+}
+
+.bg-contact {
+  background: linear-gradient(to bottom right, var(--gradient-contact-start), var(--gradient-contact-mid), var(--gradient-contact-end));
+}
+
+/* 다크모드에서 모든 섹션 배경 통일 */
+@media (prefers-color-scheme: dark) {
+  .bg-hero, .bg-about, .bg-projects, .bg-experience, .bg-skills, .bg-contact {
+    background: linear-gradient(to bottom right, #121212, #1a1a1a, #0f0f0f) !important;
+    opacity: 1 !important;
+  }
+  
+  /* 배경 전환 효과 비활성화 */
+  .continuous-bg {
+    transition: none !important;
+  }
+  
+  /* 첫 번째 배경만 표시하고 나머지는 숨김 */
+  #gradient-bg-hero {
+    opacity: 1 !important;
+  }
+  
+  #gradient-bg-about, #gradient-bg-projects, #gradient-bg-experience, #gradient-bg-skills, #gradient-bg-contact {
+    display: none !important;
+  }
+}
+
+/* 배경 패턴 */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(to right, rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+  }
+}
+
+/* 배경 애니메이션 */
+.bg-hero, .bg-about, .bg-projects, .bg-experience, .bg-skills, .bg-contact {
   background-size: 400% 400%;
-  z-index: -20;
-  opacity: 1;
   animation: gradientAnimation 15s ease infinite;
 }
 
 @keyframes gradientAnimation {
-  0% { background-position: 0% 50% }
-  50% { background-position: 100% 50% }
-  100% { background-position: 0% 50% }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* 섹션 배경 오버레이 제거 */
@@ -104,10 +248,11 @@ body {
 
 /* Hero 섹션 특별 스타일 */
 #hero {
-  background: transparent;
+  background: transparent !important;
   position: relative;
   z-index: 10;
   padding-bottom: 0px;
+  padding-top: 0px; /* 상단 여백 제거 */
 }
 
 #hero .section-content {
@@ -116,11 +261,116 @@ body {
   margin: 0 auto;
   padding-top: 0;
   padding-bottom: 0px;
+  background: transparent !important; /* 히어로 섹션 콘텐츠는 배경 없음 */
+  backdrop-filter: none !important; /* 히어로 섹션 콘텐츠는 블러 없음 */
+  border-radius: 0 !important; /* 히어로 섹션 콘텐츠는 둥근 모서리 없음 */
+  padding: 0 !important; /* 히어로 섹션 콘텐츠는 패딩 없음 */
+}
+
+/* 섹션 제목 스타일 - Git Carrot과 같은 색상 */
+.section-title {
+  background-image: linear-gradient(to right, #f59e0b, #f97316, #ef4444);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+@media (prefers-color-scheme: dark) {
+  .section-title {
+    background-image: linear-gradient(to right, #f59e0b, #f97316, #ef4444);
+  }
+}
+
+/* 각 섹션별 그라디언트 배경 */
+#hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    var(--gradient-hero-start) 0%, 
+    var(--gradient-hero-mid) 50%, 
+    var(--gradient-hero-end) 100%);
+  opacity: 0.8;
+  z-index: -1;
+  transition: opacity 0.8s ease;
+}
+
+#about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    var(--gradient-about-start) 0%, 
+    var(--gradient-about-mid) 50%, 
+    var(--gradient-about-end) 100%);
+  opacity: 0.8;
+  z-index: -1;
+  transition: opacity 0.8s ease;
+}
+
+#projects::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    var(--gradient-projects-start) 0%, 
+    var(--gradient-projects-mid) 50%, 
+    var(--gradient-projects-end) 100%);
+  opacity: 0.8;
+  z-index: -1;
+  transition: opacity 0.8s ease;
+}
+
+#experience::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    var(--gradient-experience-start) 0%, 
+    var(--gradient-experience-mid) 50%, 
+    var(--gradient-experience-end) 100%);
+  opacity: 0.8;
+  z-index: -1;
+  transition: opacity 0.8s ease;
+}
+
+#skills::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    var(--gradient-skills-start) 0%, 
+    var(--gradient-skills-mid) 50%, 
+    var(--gradient-skills-end) 100%);
+  opacity: 0.8;
+  z-index: -1;
+  transition: opacity 0.8s ease;
+}
+
+#contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    var(--gradient-contact-start) 0%, 
+    var(--gradient-contact-mid) 50%, 
+    var(--gradient-contact-end) 100%);
+  opacity: 0.8;
+  z-index: -1;
+  transition: opacity 0.8s ease;
 }
 
 /* 프로젝트 섹션 스타일 조정 */
 #projects {
   padding-bottom: 120px; /* 하단 패딩 증가 */
+  transition: background 1s ease-in-out;
+}
+
+/* 모든 섹션 배경 통일 */
+#about, #experience, #skills, #contact, #projects {
+  background: transparent !important;
+  transition: none;
 }
 
 .section-content {
@@ -134,6 +384,10 @@ body {
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
+  background: transparent; /* 배경을 투명하게 설정 */
+  backdrop-filter: none; /* 블러 효과 제거 */
+  border-radius: 0; /* 둥근 모서리 제거 */
+  padding: 20px 0; /* 기본 패딩으로 복원 */
 }
 
 /* Smooth section transitions */
@@ -357,3 +611,111 @@ body {
     transition: none;
   }
 }
+
+/* 섹션 활성화 시 배경 효과 */
+.section-active::before {
+  opacity: 1;
+}
+
+/* 섹션별 활성화 스타일 */
+body.active-hero {
+  background-color: transparent;
+  transition: background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.active-about {
+  background-color: transparent;
+  transition: background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.active-projects {
+  background-color: transparent;
+  transition: background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.active-experience {
+  background-color: transparent;
+  transition: background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.active-skills {
+  background-color: transparent;
+  transition: background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.active-contact {
+  background-color: transparent;
+  transition: background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  body.active-hero {
+    background-color: transparent;
+  }
+  
+  body.active-about {
+    background-color: transparent;
+  }
+  
+  body.active-projects {
+    background-color: transparent;
+  }
+  
+  body.active-experience {
+    background-color: transparent;
+  }
+  
+  body.active-skills {
+    background-color: transparent;
+  }
+  
+  body.active-contact {
+    background-color: transparent;
+  }
+}
+
+/* 모바일 최적화 */
+@media (max-width: 640px) {
+  .section-content {
+    padding: 16px 12px;
+  }
+  
+  h2.section-title {
+    font-size: 2.5rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+  
+  .rounded-2xl {
+    border-radius: 1rem;
+  }
+  
+  .p-6 {
+    padding: 1.25rem;
+  }
+}
+
+/* 스크롤 인디케이터 개선 */
+.section a[href^="#"] svg {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  stroke-width: 2.5px;
+  transition: all 0.3s ease;
+}
+
+.section a[href^="#"]:hover svg {
+  transform: scale(1.2);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+@media (prefers-color-scheme: dark) {
+  .section a[href^="#"] svg {
+    filter: drop-shadow(0 1px 3px rgba(255, 255, 255, 0.1));
+  }
+  
+  .section a[href^="#"]:hover svg {
+    filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.2));
+  }
+}
+
