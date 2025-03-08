@@ -256,7 +256,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <h4 className="text-lg font-semibold text-[var(--text-primary)] dark:text-white">Email</h4>
-                    <p className="text-[var(--text-primary)] dark:text-zinc-300">contact@example.com</p>
+                    <p className="text-[var(--text-primary)] dark:text-zinc-300">jeonhg0@gmail.com</p>
                   </div>
                 </div>
                 

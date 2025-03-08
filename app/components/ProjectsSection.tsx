@@ -9,16 +9,16 @@ const projects: Project[] = [
     id: 1,
     title: "UH Groupings",
     description: "Interactive dashboard application with data visualization and real-time analytics features.",
-    technologies: ["Sprinb boot", "Java", "Angular", "React", "Docker", "Hash Vault", "Grouper API" ],
+    technologies: ["Spring boot", "Java", "Angular", "React", "Docker", "Hash Vault", "GrouperAPI" ],
     imageUrl: "/uh-groupings.png",
     projectUrl: "https://www.hawaii.edu/its/uhgroupings/",
     githubUrl: "https://github.com/uhawaii-system-its-ti-iam/uh-groupings-ui"
   },
   {
     id: 2,
-    title: "AI Agent System",
-    description: "Multi-agent system with LangGraph for complex task automation and data analysis workflows.",
-    technologies: ["Python", "LangGraph", "FastAPI", "Next.js", "PostgreSQL", "Redis"],
+    title: "Backend API orchestration AI",
+    description: "Hierarchical multi-agent system with LangGraph for complex task automation and data analysis workflows.",
+    technologies: ["Python", "LangGraph", "FastAPI", "Next.js", "PostgreSQL"],
     imageUrl: "/aiproject.png",
     projectUrl: "https://github.com/gitCarrot/OrchAI",
     githubUrl: "https://github.com/gitCarrot/OrchAI"
