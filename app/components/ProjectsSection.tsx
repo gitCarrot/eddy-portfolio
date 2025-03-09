@@ -16,9 +16,18 @@ const projects: Project[] = [
   },
   {
     id: 2,
+    title: "Mobile banking loan application",
+    description: "Banking loan system with officer (admin) dashboard, managing applications, judgement, contract, and repayment.",
+    technologies: ["NextJS", "AWS", "MongoDB", "TypeScript", "TailwindCSS", "Framer Motion" ],
+    imageUrl: "/carrotloan.png",
+    projectUrl: "https://main.d542qu936aak7.amplifyapp.com/",
+    githubUrl: "https://github.com/gitCarrot/BANKLOAN"
+  },
+  {
+    id: 3,
     title: "Backend API orchestration AI",
     description: "Hierarchical multi-agent system with LangGraph for complex task automation and data analysis workflows.",
-    technologies: ["Python", "LangGraph", "FastAPI", "Next.js", "PostgreSQL"],
+    technologies: ["Python", "LangGraph", "FastAPI", "Next.js", "PostgreSQL", "Docker"],
     imageUrl: "/aiproject.png",
     projectUrl: "https://github.com/gitCarrot/OrchAI",
     githubUrl: "https://github.com/gitCarrot/OrchAI"

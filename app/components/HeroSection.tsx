@@ -266,36 +266,48 @@ export default function HeroSection() {
   
   return (
     <section 
-      id="hero" 
-      className="section relative overflow-hidden" 
-      ref={sectionRef}
+      ref={sectionRef} 
+      id="hero-section" 
+      className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-10 sm:pt-16 pb-16"
       onTouchStart={handleTouchStart}
     >
-      {/* 섹션 콘텐츠 */}
-      <div ref={containerRef} className="section-content flex flex-col items-center justify-center pt-0 sm:pt-0 pb-20 sm:pb-24 relative z-10 min-h-screen">
-        {/* 당근 이모티콘 */}
-        <div className="relative">
+      {/* 배경 효과 */}
+      <div className="absolute inset-0 bg-gradient-radial from-[var(--bg-primary)] to-[var(--bg-secondary)] dark:from-black dark:to-zinc-900 -z-10"></div>
+      
+      {/* 인터랙티브 요소 컨테이너 */}
+      <div 
+        ref={containerRef}
+        className="relative w-full max-w-4xl mx-auto flex-1 flex flex-col justify-center items-center px-4 mt-0 sm:mt-8"
+      >
+        {/* 당근 인터랙티브 요소 */}
+        <div className="relative w-full h-32 sm:h-40 mb-2 sm:mb-6">
+          {/* 당근 애니메이션 */}
           {!isCarrotRunning ? (
             <motion.div
               ref={carrotRef}
-              className="relative mb-4 sm:mb-6 z-10"
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ scale: 0 }}
               animate={{ 
-                opacity: 1, 
-                scale: carrotHover ? carrotScale * 1.1 : carrotScale,
-                rotate: carrotRotation
+                scale: carrotScale,
+                rotate: carrotRotation,
+                y: carrotHover ? -10 : 0
               }}
               transition={{ 
-                duration: 0.5,
-                rotate: { duration: 0.3 }
+                scale: { duration: 0.5 },
+                rotate: { duration: 0.5 },
+                y: { duration: 0.3 }
               }}
-              onMouseEnter={() => setCarrotHover(true)}
-              onMouseLeave={() => setCarrotHover(false)}
+              whileHover={{ 
+                scale: 1.1,
+                y: -10
+              }}
               onClick={handleCarrotClick}
               onTouchEnd={(e) => {
                 e.stopPropagation();
                 handleCarrotClick();
               }}
+              onHoverStart={() => setCarrotHover(true)}
+              onHoverEnd={() => setCarrotHover(false)}
+              className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
               style={{ 
                 transformOrigin: 'center',
                 cursor: 'pointer',
@@ -483,7 +495,7 @@ export default function HeroSection() {
         
         {/* 닉네임 (크게 표시) */}
         <motion.h1 
-          className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-2 sm:mb-3"
+          className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-1 sm:mb-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
@@ -495,7 +507,7 @@ export default function HeroSection() {
         
         {/* 원래 이름 (작게 표시) */}
         <motion.h2 
-          className="text-base sm:text-lg md:text-xl text-center mb-4 sm:mb-6 text-[var(--text-primary)] dark:text-zinc-400"
+          className="text-base sm:text-lg md:text-xl text-center mb-3 sm:mb-4 text-[var(--text-primary)] dark:text-zinc-400"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
@@ -505,7 +517,7 @@ export default function HeroSection() {
         
         {/* 간단한 소개 */}
         <motion.p 
-          className="text-sm sm:text-base text-center max-w-lg mb-8 sm:mb-10 text-[var(--text-primary)] dark:text-zinc-400"
+          className="text-sm sm:text-base text-center max-w-lg mb-6 sm:mb-8 text-[var(--text-primary)] dark:text-zinc-400"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.6 }}
@@ -515,7 +527,7 @@ export default function HeroSection() {
         
         {/* 소셜 링크 */}
         <motion.div 
-          className="flex gap-4 mb-8 sm:mb-10"
+          className="flex gap-4 mb-6 sm:mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.6 }}
@@ -603,7 +615,7 @@ export default function HeroSection() {
       
       {/* 스크롤 다운 인디케이터 - 섹션 콘텐츠 밖으로 이동 */}
       <motion.div
-        className="absolute bottom-20 sm:bottom-20 left-1/2 transform -translate-x-1/2 z-20"
+        className="absolute bottom-32 sm:bottom-20 left-1/2 transform -translate-x-1/2 z-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.8 }}

@@ -3,25 +3,26 @@ import { motion } from 'framer-motion';
 // Sample skills data by category
 const skillsByCategory = {
   frontend: [
-    { name: "React", level: 90 },
-    { name: "Next.js", level: 85 },
+    { name: "Next.js", level: 90 },
     { name: "TypeScript", level: 80 },
-    { name: "HTML/CSS", level: 95 },
-    { name: "Tailwind CSS", level: 90 }
+    { name: "Framer Motion", level: 70 },
+    { name: "Tailwind CSS", level: 90 },
+    { name: "React", level: 85 }
   ],
   backend: [
-    { name: "Node.js", level: 85 },
-    { name: "Express", level: 80 },
+    { name: "Node.js", level: 80 },
+    { name: "Spring Boot", level: 80 },
     { name: "Python", level: 75 },
     { name: "Java", level: 70 },
-    { name: "SQL", level: 80 }
+    { name: "PostgreSQL", level: 80 },
+    { name: "MongoDB", level: 80 }
   ],
   tools: [
     { name: "Git", level: 90 },
     { name: "Docker", level: 75 },
     { name: "AWS", level: 70 },
-    { name: "CI/CD", level: 65 },
-    { name: "Testing", level: 80 }
+    { name: "CI/CD (Jenkins, Github Actions)", level: 65 },
+    { name: "Testing (JUnit, Mockito, Jest)", level: 80 }
   ]
 };
 
