@@ -32,6 +32,15 @@ const projects: Project[] = [
     projectUrl: "https://github.com/gitCarrot/OrchAI",
     githubUrl: "https://github.com/gitCarrot/OrchAI"
   },
+  {
+    id: 4,
+    title: "AWS Cognito MCP Server",
+    description: "A Model Context Protocol (MCP) server implementation that connects to AWS Cognito for authentication and user management.",
+    technologies: ["TypeScript", "MCP server", "AWS", "Cognito"],
+    imageUrl: "/aiproject.png",
+    projectUrl: "https://github.com/gitCarrot/mcp-server-aws-cognito",
+    githubUrl: "https://github.com/gitCarrot/mcp-server-aws-cognito"
+  },
 ];
 
 export default function ProjectsSection() {
